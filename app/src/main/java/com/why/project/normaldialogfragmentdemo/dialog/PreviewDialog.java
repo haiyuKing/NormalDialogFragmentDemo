@@ -105,7 +105,11 @@ public class PreviewDialog extends BaseDialogFragment{
 			DisplayMetrics metrics = new DisplayMetrics();
 			this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 			Window window = this.getDialog().getWindow();
-			window.setLayout(metrics.widthPixels, metrics.heightPixels - getStatusBarHeight(mContext));
+			if(getStatusBarHeight(mContext) <= 96){
+				window.setLayout(metrics.widthPixels, metrics.heightPixels - getStatusBarHeight(mContext));
+			}else{
+				window.setLayout(metrics.widthPixels, this.getDialog().getWindow().getAttributes().height);//适配红米6pro
+			}
 			window.setGravity(Gravity.BOTTOM);//设置在底部
 			//打开的动画效果--从底部向上
 			window.setWindowAnimations(R.style.bottomsheetdialog_animation);
